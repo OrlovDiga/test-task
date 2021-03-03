@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 /**
  * @author Orlov Diga
  */
-public class CarPredicates {
+public final class CarPredicates {
 
     public static class Builder {
 
@@ -32,7 +32,7 @@ public class CarPredicates {
         public Builder hrEq(Integer minEngineHorsepower) {
             if (minEngineHorsepower != null && minEngineHorsepower > 0) {
                 Predicate<CarFullInfo> checkHr =
-                        (info) -> info.getEngineCar().getEngineHorsepower() >= minEngineHorsepower;
+                        (info) -> info.getEngineCar().getHorsepower() >= minEngineHorsepower;
                 this.multiPred = this.multiPred.and(checkHr);
             }
             return this;
@@ -41,7 +41,7 @@ public class CarPredicates {
         public Builder displacementEq(Double displacement) {
             if (displacement != null && displacement > 0.0) {
                 Predicate<CarFullInfo> checkDisplacement =
-                        (info) -> info.getEngineCar().getEngineDisplacement() >= displacement;
+                        (info) -> info.getEngineCar().getDisplacement() >= displacement;
                 this.multiPred = this.multiPred.and(checkDisplacement);
             }
             return this;
@@ -59,7 +59,7 @@ public class CarPredicates {
         public Builder bodyStyleEq(String bodyStyle) {
             if (bodyStyle != null && !bodyStyle.isBlank()) {
                 Predicate<CarFullInfo> checkBodyStyle =
-                        (info) -> info.getBodyCar().getBodyStyle().contains(bodyStyle);
+                        (info) -> info.getBodyCar().getStyle().contains(bodyStyle);
                 this.multiPred = this.multiPred.and(checkBodyStyle);
             }
             return this;
@@ -72,6 +72,22 @@ public class CarPredicates {
                 this.multiPred = this.multiPred.and(checkYear);
             }
             return this;
+        }
+
+        public Builder modelEq(String model) {
+            if (model != null && !model.isBlank()) {
+                Predicate<CarFullInfo> checkModel = (info) -> info.getModel().equals(model);
+                this.multiPred = this.multiPred.and(checkModel);
+            }
+            return this;
+        }
+
+        public Builder brandEq(String brand) {
+                if (brand != null && !brand.isBlank()) {
+                    Predicate<CarFullInfo> checkBrand = (info) -> info.getBrand().equals(brand);
+                    this.multiPred = this.multiPred.and(checkBrand);
+                }
+                return this;
         }
 
         public Predicate<CarFullInfo> build () {

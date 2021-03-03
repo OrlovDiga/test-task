@@ -26,7 +26,7 @@ public class CarServiceImpl implements CarService {
     private final List<CarFullInfo> carList;
 
     @Override
-    public List<? extends CarInfo> findCarsAllByParam(CarRequestParameters params) {
+    public List<? extends CarInfo> findCarsAllByParam(final CarRequestParameters params) {
         Predicate<CarFullInfo> carFilter = new CarPredicates.Builder()
                 .countryEq(params.getCountry())
                 .segmentEq(params.getSegment())
@@ -55,7 +55,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<String> findAllBodyStyles() {
          return carList.stream()
-                .flatMap(it -> Arrays.stream(it.getBodyCar().getBodyStyle().split(",")))
+                .flatMap(it -> Arrays.stream(it.getBodyCar().getStyle().split(",")))
                 .map(String::trim)
                 .distinct()
                 .collect(Collectors.toList());
@@ -64,7 +64,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<String> findAllEngineTypes() {
         return carList.stream()
-                .map(it -> it.getEngineCar().getEngineType())
+                .map(it -> it.getEngineCar().getType())
                 .distinct()
                 .collect(Collectors.toList());
     }
@@ -102,7 +102,8 @@ public class CarServiceImpl implements CarService {
         if (model == null || model.isBlank()) {
             temp++;
         }
-        Stream<CarFullInfo> carFullInfoStream = carList.stream();
+
+        CarPredicates.Builder carFilter = new CarPredicates.Builder();
 
         switch (temp) {
             case 1:     /* Model and Brand is not empty. */
@@ -110,17 +111,15 @@ public class CarServiceImpl implements CarService {
                 throw new NotValidParamException("Only one of the parameters should be set.");
             }
             case 10: { /* Model is not empty. */
-                carFullInfoStream = carFullInfoStream
-                        .filter(it -> it.getModel().equals(model));
+                carFilter = carFilter.brandEq(brand);
             }
             break;
             case 2: { /* Brand is not empty. */
-                carFullInfoStream = carFullInfoStream
-                        .filter(it -> it.getBrand().equals(brand));
+                carFilter = carFilter.modelEq(model);
             }
         }
 
-        return carFullInfoStream
+        return carList.stream().filter(carFilter.build())
                 .mapToInt(CarFullInfo::getMaxSpeed)
                 .average()
                 .orElse(-1.0);

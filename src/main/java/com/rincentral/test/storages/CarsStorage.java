@@ -27,7 +27,7 @@ public class CarsStorage {
 
     @PostConstruct
     public void init() {
-        List<ExternalCar> carList = apiService.loadAllCars();
+        List<ExternalCar> carList = apiService.loadAllCarsByPages();
         Map<Integer, ExternalBrand> externalBrandMap =
                 apiService.loadAllBrands().stream()
                         .collect(Collectors.toMap(ExternalBrand::getId, it -> it));
@@ -43,16 +43,16 @@ public class CarsStorage {
             int end = (extYearRange[1].equals("present")) ? Integer.MAX_VALUE : Integer.parseInt(extYearRange[1]);
 
             BodyCharacteristics body = BodyCharacteristics.builder()
-                    .bodyHeight(carInfo.getBodyHeight().toString())
-                    .bodyLength(carInfo.getBodyLength().toString())
-                    .bodyWidth(carInfo.getBodyWidth().toString())
-                    .bodyStyle(carInfo.getBodyStyle())
+                    .height(carInfo.getBodyHeight().toString())
+                    .length(carInfo.getBodyLength().toString())
+                    .width(carInfo.getBodyWidth().toString())
+                    .style(carInfo.getBodyStyle())
                     .build();
 
             EngineCharacteristics engine = EngineCharacteristics.builder()
-                    .engineDisplacement(carInfo.getEngineDisplacement().doubleValue())
-                    .engineType(carInfo.getEngineType())
-                    .engineHorsepower(carInfo.getHp())
+                    .displacement(carInfo.getEngineDisplacement().doubleValue())
+                    .type(carInfo.getEngineType())
+                    .horsepower(carInfo.getHp())
                     .fuelType(carInfo.getFuelType().toString().toLowerCase())
                     .build();
 

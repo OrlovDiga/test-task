@@ -181,3 +181,10 @@ _If you get an error **Filesharing has been cancelled** on Windows – you need 
    ```
 
 Для проверки проект должен быть выложен в открытый доступ на какой-либо платформе (github, gitlab и т.д.).
+
+## Example Run Test-Task
+```bash
+git pull privdim/dins-test-task
+docker run -p 8080:8080 --env EXT_API_IP=172.17.0.1 --env EXT_API_PORT=8084 --rm -d privdim/dins-test-task
+```
+P.S. Изначально я пробовал дописать деплой приложения в `docker-compose.yml`, указав depends_on: api. Но данный способ не сработал. Я считаю, что проблема возникла в том, что api стартует и дает право далее стартовать test-task. Но так как test-task по времени конфигурируется меньше - возникает проблема, что на старте для инициализации данных оно обращается к api, которое еще не до конца стартовало.

@@ -22,10 +22,10 @@ public final class CarFullInfo extends CarInfo {
     @JsonProperty("wheel_drive")
     private String wheelDrive;
 
-    @JsonProperty("body_car")
+    @JsonProperty("body")
     private BodyCharacteristics bodyCar;
 
-    @JsonProperty("engine_car")
+    @JsonProperty("engine")
     private EngineCharacteristics engineCar;
 
     @JsonProperty("acceleration")

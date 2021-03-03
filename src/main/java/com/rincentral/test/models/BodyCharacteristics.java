@@ -12,15 +12,15 @@ import lombok.Setter;
 @Builder
 public class BodyCharacteristics {
 
-    @JsonProperty("body_length")
-    private String bodyLength;
+    @JsonProperty("length")
+    private String length;
 
-    @JsonProperty("body_width")
-    private String bodyWidth;
+    @JsonProperty("width")
+    private String width;
 
-    @JsonProperty("body_height")
-    private String bodyHeight;
+    @JsonProperty("height")
+    private String height;
 
-    @JsonProperty("body_style")
-    private String bodyStyle;
+    @JsonProperty("style")
+    private String style;
 }

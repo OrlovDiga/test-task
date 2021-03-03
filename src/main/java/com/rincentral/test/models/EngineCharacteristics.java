@@ -12,8 +12,8 @@ import lombok.Setter;
 @Builder
 public class EngineCharacteristics {
 
-    @JsonProperty("engine_type")
-    private String engineType;
+    @JsonProperty("type")
+    private String type;
 
     /*@JsonProperty("engine_cylinders")
     private String engineCylinders;*/
@@ -21,9 +21,9 @@ public class EngineCharacteristics {
     @JsonProperty("fuel_type")
     private String fuelType;
 
-    @JsonProperty("engine_displacement")
-    private Double engineDisplacement;
+    @JsonProperty("displacement")
+    private Double displacement;
 
-    @JsonProperty("engine_horsepower")
-    private Integer engineHorsepower;
+    @JsonProperty("horsepower")
+    private Integer horsepower;
 }

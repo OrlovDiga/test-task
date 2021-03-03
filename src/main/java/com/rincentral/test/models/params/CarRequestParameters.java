@@ -15,7 +15,7 @@ public class CarRequestParameters {
     private Double minEngineDisplacement;
     private Integer minEngineHorsepower;
     private Integer minMaxSpeed;
-    private String search;
+    private Integer search;
     private Boolean isFull;
     private Integer year;
     private String bodyStyle;

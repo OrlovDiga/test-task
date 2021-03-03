@@ -1,26 +1,48 @@
 package com.rincentral.test.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class CarInfo {
+
     @JsonProperty("id")
-    private Integer id;
+    protected Integer id;
 
     @JsonProperty("segment")
-    private String segment;
+    protected String segment;
 
     @JsonProperty("brand")
-    private String brand;
+    protected String brand;
 
     @JsonProperty("model")
-    private String model;
+    protected String model;
 
     @JsonProperty("country")
-    private String country;
+    protected String country;
 
     @JsonProperty("generation")
-    private String generation;
+    protected String generation;
 
     @JsonProperty("modification")
-    private String modification;
+    protected String modification;
+
+    public CarInfo(Integer id,
+                   String segment,
+                   String brand,
+                   String model,
+                   String country,
+                   String generation,
+                   String modification) {
+        this.id = id;
+        this.segment = segment;
+        this.brand = brand;
+        this.model = model;
+        this.country = country;
+        this.generation = generation;
+        this.modification = modification;
+    }
 }

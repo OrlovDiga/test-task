@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.stream.Stream;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -40,7 +42,7 @@ public class ExternalCarInfo {
     private FuelType fuelType;
 
     @JsonProperty("engine_cylinders")
-    private EngineType engineType;
+    private String engineType;
 
     @JsonProperty("engine_displacement")
     private Integer engineDisplacement;
@@ -49,10 +51,10 @@ public class ExternalCarInfo {
     private Integer hp;
 
     @JsonProperty("gearbox")
-    private GearboxType gearboxType;
+    private String gearboxType;
 
     @JsonProperty("wheel_drive")
-    private WheelDriveType wheelDriveType;
+    private String wheelDriveType;
 
     @JsonProperty("body_length")
     private Integer bodyLength;

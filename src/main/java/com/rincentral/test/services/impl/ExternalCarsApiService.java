@@ -1,4 +1,4 @@
-package com.rincentral.test.services;
+package com.rincentral.test.services.impl;
 
 import com.rincentral.test.models.external.ExternalBrand;
 import com.rincentral.test.models.external.ExternalCar;
@@ -31,6 +31,7 @@ public class ExternalCarsApiService {
                 return Collections.emptyList();
             }
             return Arrays.asList(allCarsResponse.getBody());
+
         } catch (RestClientException restClientException) {
             LOGGER.error("Error when trying to load all cars", restClientException);
             return Collections.emptyList();

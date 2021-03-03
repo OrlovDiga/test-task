@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @NoArgsConstructor
+@EqualsAndHashCode
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Builder
 public class CarInfo {
 
     @JsonProperty("id")
@@ -29,20 +32,4 @@ public class CarInfo {
 
     @JsonProperty("modification")
     protected String modification;
-
-    public CarInfo(Integer id,
-                   String segment,
-                   String brand,
-                   String model,
-                   String country,
-                   String generation,
-                   String modification) {
-        this.id = id;
-        this.segment = segment;
-        this.brand = brand;
-        this.model = model;
-        this.country = country;
-        this.generation = generation;
-        this.modification = modification;
-    }
 }

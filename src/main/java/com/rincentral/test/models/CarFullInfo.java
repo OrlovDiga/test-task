@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 @ToString
 @NoArgsConstructor
 public final class CarFullInfo extends CarInfo {
@@ -64,4 +66,17 @@ public final class CarFullInfo extends CarInfo {
         this.acceleration = acceleration;
         this.maxSpeed = maxSpeed;
     }
+
+    public CarInfo toCarInfo() {
+        return CarInfo.builder()
+                .id(this.id)
+                .brand(this.brand)
+                .country(this.country)
+                .generation(this.generation)
+                .model(this.model)
+                .modification(this.modification)
+                .segment(this.segment)
+                .build();
+    }
+
 }

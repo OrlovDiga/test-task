@@ -1,6 +1,7 @@
 package com.rincentral.test.services;
 
 import com.rincentral.test.models.CarInfo;
+import com.rincentral.test.models.params.CarRequestParameters;
 
 import java.util.List;
 
@@ -9,15 +10,7 @@ import java.util.List;
  */
 public interface CarService {
 
-    List<? extends CarInfo> findCarsAllByParam(String country,
-                                               String segment,
-                                               Double minEngineDisplacement,
-                                               Integer minEngineHorsepower,
-                                               Integer minMaxSpeed,
-                                               Integer search,
-                                               Boolean isFull,
-                                               Integer year,
-                                               String bodyStyle);
+    List<? extends CarInfo> findCarsAllByParam(CarRequestParameters params);
 
     List<String> findAllBodyStyles();
 

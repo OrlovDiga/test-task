@@ -1,42 +1,32 @@
 package com.rincentral.test.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rincentral.test.models.CarFullInfo;
+import com.rincentral.test.exceptions.NotValidParamException;
 import com.rincentral.test.models.CarInfo;
 import com.rincentral.test.models.params.CarRequestParameters;
 import com.rincentral.test.models.params.MaxSpeedRequestParameters;
 import com.rincentral.test.services.CarService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
-import static java.util.Collections.emptyList;
-
+@Slf4j
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class ApiController {
 
     private final CarService carService;
-    private final ObjectMapper mapper;
 
     @GetMapping("/cars")
-    public ResponseEntity<List<? extends CarInfo>> getCars(CarRequestParameters param) {
+    public ResponseEntity<List<? extends CarInfo>> getCars(@Valid CarRequestParameters param) {
         return ResponseEntity.ok(
-                carService.findCarsAllByParam(
-                        param.getCountry(),
-                        param.getSegment(),
-                        param.getMinEngineDisplacement(),
-                        param.getMinEngineHorsepower(),
-                        param.getMinMaxSpeed(),
-                        param.getSearch(),
-                        param.getIsFull(),
-                        param.getYear(),
-                        param.getBodyStyle()));
+                carService.findCarsAllByParam(param));
     }
 
     @GetMapping("/fuel-types")
@@ -65,10 +55,14 @@ public class ApiController {
     }
 
     @GetMapping("/max-speed")
-    public ResponseEntity<Double> getMaxSpeed(MaxSpeedRequestParameters requestParameters) {
-        return ResponseEntity.ok(
-                carService.findAllAverageSpeed(
-                        requestParameters.getBrand(),
-                        requestParameters.getModel()));
+    public ResponseEntity<Double> getMaxSpeed(@Valid MaxSpeedRequestParameters requestParameters)
+            throws NotValidParamException {
+        double averageSpeed = carService.findAllAverageSpeed(
+                requestParameters.getBrand(),
+                requestParameters.getModel());
+
+        return (averageSpeed == -1) ?
+                ResponseEntity.notFound().build() :
+                ResponseEntity.ok(averageSpeed);
     }
 }
